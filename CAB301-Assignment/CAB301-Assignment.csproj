@@ -43,7 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Classes\Member.cs" />
+    <Compile Include="Classes\MemberCollection.cs" />
+    <Compile Include="Classes\Movie.cs" />
+    <Compile Include="Classes\MovieCollection.cs" />
+    <Compile Include="Enums\Genre.cs" />
+    <Compile Include="Enums\Rating.cs" />
+    <Compile Include="DvDRentalSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

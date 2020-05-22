@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CAB301_Assignment
+namespace CAB301_Assignment.Enums
 {
-    class Program
+    public enum Rating
     {
-        static void Main(string[] args)
-        {
-        }
+        G,
+        PG,
+        M15,
+        MA15
     }
 }

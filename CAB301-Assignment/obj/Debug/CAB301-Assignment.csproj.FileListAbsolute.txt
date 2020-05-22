@@ -1,0 +1,7 @@
+A:\Projects\c76-Wilson\CAB301-Assignment1\CAB301-Assignment\bin\Debug\CAB301-Assignment.exe.config
+A:\Projects\c76-Wilson\CAB301-Assignment1\CAB301-Assignment\bin\Debug\CAB301-Assignment.exe
+A:\Projects\c76-Wilson\CAB301-Assignment1\CAB301-Assignment\bin\Debug\CAB301-Assignment.pdb
+A:\Projects\c76-Wilson\CAB301-Assignment1\CAB301-Assignment\obj\Debug\CAB301-Assignment.csprojAssemblyReference.cache
+A:\Projects\c76-Wilson\CAB301-Assignment1\CAB301-Assignment\obj\Debug\CAB301-Assignment.csproj.CoreCompileInputs.cache
+A:\Projects\c76-Wilson\CAB301-Assignment1\CAB301-Assignment\obj\Debug\CAB301-Assignment.exe
+A:\Projects\c76-Wilson\CAB301-Assignment1\CAB301-Assignment\obj\Debug\CAB301-Assignment.pdb
