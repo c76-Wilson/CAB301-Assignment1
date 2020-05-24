@@ -67,7 +67,17 @@ namespace CAB301_Assignment.MovieClasses
 
         public int CompareTo(object obj)
         {
-            throw new NotImplementedException();
+            //Check if comparable object is a movie, if not throw an error
+            if (obj is Movie)
+            {
+                Movie movieToCompare = (Movie)obj;
+                // Compare movie titles
+                return this.Title.CompareTo(movieToCompare.Title);
+            }
+            else
+            {
+                throw new Exception("Object to compare is not a Movie!");
+            }
         }
 
         public Movie(string title, Genre genre, Rating rating, string starring, string director, string duration, DateTime releaseDate)

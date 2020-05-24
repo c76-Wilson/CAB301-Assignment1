@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\BinarySearchTree\BinarySearchTree.cs" />
+    <Compile Include="Classes\BinarySearchTree\BinarySearchNode.cs" />
     <Compile Include="Classes\Member.cs" />
     <Compile Include="Classes\MemberCollection.cs" />
     <Compile Include="Classes\Movie.cs" />
