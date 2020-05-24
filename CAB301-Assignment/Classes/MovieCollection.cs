@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CAB301_Assignment.Classes.BSTClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,16 +9,17 @@ namespace CAB301_Assignment.Classes
 {
     public class MovieCollection
     {
-        // Implement Binary Search Tree
+        private BinarySearchTree _Movies;
 
-        //
-
-        private String _Name;
-
-        public String Name
+        public BinarySearchTree Movies
         {
-            get { return _Name; }
-            set { _Name = value; }
+            get { return _Movies; }
+            set { _Movies = value; }
+        }
+
+        public MovieCollection()
+        {
+            this.Movies = new BinarySearchTree();
         }
     }
 }

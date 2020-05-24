@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CAB301_Assignment.Classes.BinarySearchTree
+namespace CAB301_Assignment.Classes.BSTClasses
 {
     public class BinarySearchNode
     {

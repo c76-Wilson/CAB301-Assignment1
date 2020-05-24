@@ -65,6 +65,14 @@ namespace CAB301_Assignment.MovieClasses
             set { _ReleaseDate = value; }
         }
 
+        private int _Quantity;
+
+        public int Quantity
+        {
+            get { return _Quantity; }
+            set { _Quantity = value; }
+        }
+
         public int CompareTo(object obj)
         {
             //Check if comparable object is a movie, if not throw an error
@@ -80,7 +88,7 @@ namespace CAB301_Assignment.MovieClasses
             }
         }
 
-        public Movie(string title, Genre genre, Rating rating, string starring, string director, string duration, DateTime releaseDate)
+        public Movie(string title, Genre genre, Rating rating, string starring, string director, string duration, DateTime releaseDate, int quantity)
         {
             Title = title;
             Genre = genre;
@@ -89,6 +97,12 @@ namespace CAB301_Assignment.MovieClasses
             Director = director;
             Duration = duration;
             ReleaseDate = releaseDate;
+            Quantity = quantity;
+        }
+
+        public Movie()
+        {
+
         }
     }
 }

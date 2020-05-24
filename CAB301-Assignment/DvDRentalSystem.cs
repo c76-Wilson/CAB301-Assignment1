@@ -1,4 +1,5 @@
-﻿using CAB301_Assignment.Classes.BinarySearchTree;
+﻿using CAB301_Assignment.Classes;
+using CAB301_Assignment.Classes.BSTClasses;
 using CAB301_Assignment.Enums;
 using CAB301_Assignment.MovieClasses;
 using System;
@@ -10,16 +11,17 @@ using System.Threading.Tasks;
 
 namespace CAB301_Assignment
 {
-    class DvDRentalSystem
+    public class DvDRentalSystem
     {
         protected static String StaffUsername = "staff";
         protected static String StaffPassword = "today123";
 
-        public static BinarySearchTree binarySearchTree;
+        public static MovieCollection MovieCollection;
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            binarySearchTree = new BinarySearchTree();
+            MovieCollection = new MovieCollection();
+
             while (true)
             {
                 switch (WriteWelcome())
@@ -230,14 +232,36 @@ namespace CAB301_Assignment
                 }
             }
 
-            newMovie = new Movie(title, genre, rating, starring, director, duration, releaseDate);
+            Console.Write("\r\nPlease enter the release date (dd/mm/yyyy): ");
+            int quantity = 0;
+            bool isValidInt = false;
 
-            binarySearchTree.Insert(newMovie);
+            while (!isValidInt)
+            {
+                if (int.TryParse(Console.ReadLine(), out quantity))
+                {
+                    isValidInt = true;
+                }
+                else
+                {
+                    Console.WriteLine("Please enter a valid int: ");
+                }
+            }
+
+            newMovie = new Movie(title, genre, rating, starring, director, duration, releaseDate, quantity);
+
+            MovieCollection.Movies.Insert(newMovie);
         }
 
         private static void RemoveDVD()
         {
+            Console.Write("Please enter the name of the DVD you want to delete: ");
 
+            // Movie to delete
+            Movie deleteMovie = new Movie();
+            deleteMovie.Title = Console.ReadLine();
+
+            MovieCollection.Movies.Delete(deleteMovie);
         }
 
         private static void RegisterNewMember()
