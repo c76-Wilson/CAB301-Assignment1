@@ -73,6 +73,14 @@ namespace CAB301_Assignment.MovieClasses
             set { _Quantity = value; }
         }
 
+        private int _NumberOfBorrows;
+
+        public int NumberOfBorrows
+        {
+            get { return _NumberOfBorrows; }
+            set { _NumberOfBorrows = value; }
+        }
+
         public int CompareTo(object obj)
         {
             //Check if comparable object is a movie, if not throw an error
@@ -98,6 +106,13 @@ namespace CAB301_Assignment.MovieClasses
             Duration = duration;
             ReleaseDate = releaseDate;
             Quantity = quantity;
+            NumberOfBorrows = 0;
+        }
+
+        // Movie constructor with just title for searching
+        public Movie(String title)
+        {
+            this.Title = title;
         }
 
         public Movie()

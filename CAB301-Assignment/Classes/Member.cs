@@ -17,6 +17,22 @@ namespace CAB301_Assignment.Classes
             set { _FullName = value; }
         }
 
+        private String _UserName;
+               
+        public String UserName
+        {
+            get { return _UserName; }
+            set { _UserName = value; }
+        }
+
+        private int _Password;
+
+        public int Password
+        {
+            get { return _Password; }
+            set { _Password = value; }
+        }
+
         private String _Address;
 
         public String Address
@@ -39,13 +55,16 @@ namespace CAB301_Assignment.Classes
         {
             get { return _BorrowedMovies; }
             set { _BorrowedMovies = value; }
-        }
+        }        
 
-        public Member(String fullName, String address, String phoneNumber)
+        public Member(String fullName, String userName, int password, String address, String phoneNumber)
         {
             this.FullName = fullName;
+            this.UserName = userName;
+            this.Password = password;
             this.Address = address;
             this.PhoneNumber = phoneNumber;
+            this.BorrowedMovies = new MovieCollection();
         }
     }
 }

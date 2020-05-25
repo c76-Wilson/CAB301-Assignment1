@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,10 +50,13 @@
     <Compile Include="Classes\MemberCollection.cs" />
     <Compile Include="Classes\Movie.cs" />
     <Compile Include="Classes\MovieCollection.cs" />
+    <Compile Include="Classes\QuickSortSystem.cs" />
     <Compile Include="Enums\Genre.cs" />
     <Compile Include="Enums\Rating.cs" />
     <Compile Include="DvDRentalSystem.cs" />
+    <Compile Include="MemberMenuSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StaffMenuSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,4 +1,5 @@
-﻿using CAB301_Assignment.MovieClasses;
+﻿using CAB301_Assignment.Enums;
+using CAB301_Assignment.MovieClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -154,9 +155,12 @@ namespace CAB301_Assignment.Classes.BSTClasses
             if (Search(item))
             {
                 BinarySearchNode nodeToDelete = this.TreeRoot;
+                // Need to keep track of parent so we can move children to it later.
+                BinarySearchNode parentOfNodeToDelete = null;
                 // Get the node to delete
                 while (item.CompareTo(nodeToDelete.Data) != 0)
                 {
+                    parentOfNodeToDelete = nodeToDelete;
                     if (item.CompareTo(nodeToDelete.Data) < 0) // Go to left node
                     {
                         nodeToDelete = nodeToDelete.LeftNode;
@@ -193,7 +197,196 @@ namespace CAB301_Assignment.Classes.BSTClasses
                         parentOfCurrentNode.RightNode = currentNode.LeftNode;
                     }
                 }
+                else
+                {
+                    // Get the child node (or null if no children) of the node to be deleted
+                    BinarySearchNode childNode;
+                    if (nodeToDelete.LeftNode != null)
+                    {
+                        childNode = nodeToDelete.LeftNode;
+                    }
+                    else
+                    {
+                        childNode = nodeToDelete.RightNode;
+                    }
+
+                    // Check if the node to delete is the tree root - if so replace it with the child
+                    if (nodeToDelete == TreeRoot)
+                    {
+                        TreeRoot = childNode;
+                    }
+                    else
+                    {
+                        // If not tree root, replace node to delete with its child (or null if it has no children)
+                        if (nodeToDelete == parentOfNodeToDelete.LeftNode)
+                        {
+                            parentOfNodeToDelete.LeftNode = childNode;
+                        }
+                        else
+                        {
+                            parentOfNodeToDelete.RightNode = childNode;
+                        }
+                    }
+                }
             }
+        }
+
+        public Movie BorrowMovie(IComparable item)
+        {
+            // Search to see if movie exists
+            if (Search(item))
+            {
+                BinarySearchNode nodeToBorrow = this.TreeRoot;
+                while (item.CompareTo(nodeToBorrow.Data) != 0)
+                {
+                    if (item.CompareTo(nodeToBorrow.Data) < 0) // Go to left node
+                    {
+                        nodeToBorrow = nodeToBorrow.LeftNode;
+                    }
+                    else
+                    {
+                        nodeToBorrow = nodeToBorrow.RightNode;
+                    }
+                }
+
+                return ((Movie)nodeToBorrow.Data);                
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public void ReturnMovie(IComparable item)
+        {
+            // Search to see if movie exists in system - if not create it (edge case for if movie is deleted while it is borrowed)
+            if (Search(item))
+            {
+                BinarySearchNode nodeToReturn = this.TreeRoot;
+                while (item.CompareTo(nodeToReturn.Data) != 0)
+                {
+                    if (item.CompareTo(nodeToReturn.Data) < 0) // Go to left node
+                    {
+                        nodeToReturn = nodeToReturn.LeftNode;
+                    }
+                    else
+                    {
+                        nodeToReturn = nodeToReturn.RightNode;
+                    }
+                }
+
+                ((Movie)nodeToReturn.Data).Quantity++;
+            }
+            else
+            {
+                Insert(item);
+            }
+        }
+
+        public void InOrderTraverseWriteDetails()
+        {
+            if (TreeRoot != null)
+            {
+                InOrderTraverseWriteDetails(TreeRoot);
+            }
+        }
+
+        public void InOrderTraverseWriteDetails(BinarySearchNode node)
+        {
+            if (node != null)
+            {
+                // Turn IComparable into movie
+                Movie movie = ((Movie)node.Data);
+
+                //Traverse left tree if not null
+                if (node.LeftNode != null)
+                {
+                    InOrderTraverseWriteDetails(node.LeftNode);
+                }
+
+                // Print current movie details
+                Console.WriteLine("Title: \t\t{0}\r\n" +
+                    "Genre: \t\t{1}\r\n" +
+                    "Rating: \t{2}\r\n" +
+                    "Starring: \t{3}\r\n" +
+                    "Director: \t{4}\r\n" +
+                    "Duration: \t{5}\r\n" +
+                    "Release Date: \t{6}\r\n" +
+                    "AVAILABLE: \t{7}\r\n",
+                    movie.Title,
+                    (movie.Genre == Genre.SciFi ? "Sci-Fi" : movie.Genre.ToString()),
+                    ((movie.Rating == Rating.M15 || movie.Rating == Rating.MA15) ? (movie.Rating == Rating.M15 ? "M15+" : "MA15+") : movie.Rating.ToString()),
+                    movie.Starring,
+                    movie.Director,
+                    movie.Duration,
+                    movie.ReleaseDate.ToString("dd/MM/yyyy"),
+                    movie.Quantity.ToString());
+
+                if (node.RightNode != null)
+                {
+                    InOrderTraverseWriteDetails(node.RightNode);
+                }
+            }
+        }
+
+        public void InOrderTraverseWriteList()
+        {
+            if (TreeRoot != null)
+            {
+                InOrderTraverseWriteList(TreeRoot);
+            }
+        }
+
+        public void InOrderTraverseWriteList(BinarySearchNode node)
+        {
+            if (node != null)
+            {
+                // Turn IComparable into movie
+                Movie movie = ((Movie)node.Data);
+
+                //Traverse left tree if not null
+                if (node.LeftNode != null)
+                {
+                    InOrderTraverseWriteList(node.LeftNode);
+                }
+
+                // Print current movie details
+                Console.WriteLine("Title: \t\t{0}\r\n", movie.Title);
+
+                if (node.RightNode != null)
+                {
+                    InOrderTraverseWriteList(node.RightNode);
+                }
+            }
+        }
+
+        public Movie[] ConvertToArray(int arraySize)
+        {
+            if (TreeRoot != null)
+            {
+                Movie[] unsortedArray = new Movie[arraySize];
+                ExtractNodeData(TreeRoot, unsortedArray, 0);
+                return unsortedArray;
+            }
+            return null;
+        }
+
+        public int ExtractNodeData(BinarySearchNode node, Movie[] unsortedArray, int index)
+        {
+            //Traverse left tree if not null
+            if (node.LeftNode != null)
+            {
+                index = ExtractNodeData(node.LeftNode, unsortedArray, index);
+            }
+
+            if (node.RightNode != null)
+            {
+                index = ExtractNodeData(node.RightNode, unsortedArray, index);
+            }
+
+            unsortedArray[index] = (Movie)node.Data;
+
+            return index + 1;
         }
 
         public void Clear()
