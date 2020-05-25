@@ -17,7 +17,9 @@ namespace CAB301_Assignment
             Console.Write("Please enter username and password:\r\n" +
                 " Username: ");
 
-            Member member = Array.Find(MemberCollection.Members, x => x != null && x.UserName == Console.ReadLine());
+            String userName = Console.ReadLine();
+
+            Member member = Array.Find(MemberCollection.Members, x => x != null && x.UserName == userName);
 
             if (member != null)
             {
@@ -42,15 +44,14 @@ namespace CAB301_Assignment
         {
             Console.WriteLine
                 (
-                "Welcome to the Community Library\r\n" +
-                "===========Main Menu===========\r\n" +
+                "===========Member Menu===========\r\n" +
                 " 1. Display all movies\r\n" +
                 " 2. Borrow a movie DVD\r\n" +
                 " 3. Return a movie DVD\r\n" +
                 " 4. List current borrowed movie DVDs\r\n" +
                 " 5. Display top 10 most popular movies\r\n" +
                 " 0. Return to main menu\r\n" +
-                "===============================\r\n" +
+                "=================================\r\n" +
                 "\r\n" +
                 " Please make a selection (1-5, or 0 to return to main menu):"
                 );
@@ -92,7 +93,7 @@ namespace CAB301_Assignment
                         WriteMemberMenu();
                         break;
                     default:
-                        Console.WriteLine(" Please enter a valid selection (1-4, or 0 to return to main menu): ");
+                        Console.WriteLine(" Please enter a valid selection (1-5, or 0 to return to main menu): ");
                         break;
                 }
             }
@@ -117,6 +118,8 @@ namespace CAB301_Assignment
 
         private static void BorrowMovie(Member member)
         {
+            Console.Clear();
+
             // Ask user what the title of the Movie is
             Console.Write("Please enter the title of the movie you want to borrow: ");
 
@@ -143,6 +146,16 @@ namespace CAB301_Assignment
                             borrowedMovie.Quantity = 1;
 
                             member.BorrowedMovies.AddMovie(borrowedMovie);
+
+                            Console.Clear();
+
+                            Console.WriteLine("You've successfully borrowed {0}!\r\n" +
+                    "Press enter to return to member menu... ", movieTitle);
+
+                            while (Console.ReadKey().Key != ConsoleKey.Enter)
+                            {
+
+                            }
                         }
                         else
                         {
@@ -195,8 +208,10 @@ namespace CAB301_Assignment
 
         private static void ReturnMovie(Member member)
         {
+            Console.Clear();
+
             // Ask user what the title of the Movie is
-            Console.Write("Please enter the title of the movie you want to borrow: ");
+            Console.Write("Please enter the title of the movie you want to return: ");
 
             String movieTitle = Console.ReadLine();
 
@@ -206,12 +221,22 @@ namespace CAB301_Assignment
                 MovieCollection.Movies.ReturnMovie(new Movie(movieTitle));
 
                 member.BorrowedMovies.RemoveMovie(new Movie(movieTitle));
+
+                Console.Clear();
+
+                Console.WriteLine("You've successfully returned {0}!\r\n" +
+                    "Press enter to return to member menu... ", movieTitle);
+
+                while (Console.ReadKey().Key != ConsoleKey.Enter)
+                {
+
+                }
             }
             else
             {
                 Console.Clear();
                 Console.WriteLine("You don't have this movie borrowed!\r\n" +
-                    "Press enter to return to member menu... ", movieTitle);
+                    "Press enter to return to member menu... ");
 
                 while (Console.ReadKey().Key != ConsoleKey.Enter)
                 {
@@ -224,10 +249,11 @@ namespace CAB301_Assignment
         private static void ListAllBorrowedMovies(Member member)
         {
             Console.Clear();
+
             Console.WriteLine("Total Movies Borrowed: {0}\r\n", member.BorrowedMovies.MoviesInCollection);
             member.BorrowedMovies.Movies.InOrderTraverseWriteList();
 
-            Console.WriteLine("Press enter to return to member menu... ");
+            Console.WriteLine("\r\nPress enter to return to member menu... ");
 
             while (Console.ReadKey().Key != ConsoleKey.Enter)
             {
@@ -237,9 +263,9 @@ namespace CAB301_Assignment
 
         private static void DisplayTop10Movies()
         {
-            Movie[] unsortedArray = MovieCollection.ConvertToArray();
+            Console.Clear();
 
-            Movie[] sortedArray = QuickSortSystem.QuickSortArray(unsortedArray);
+            Movie[] sortedArray = QuickSortSystem.QuickSortArray(MovieCollection.ConvertToArray());
 
             Console.WriteLine("Most Borrowed Movies:\r\n");
 

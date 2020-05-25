@@ -32,11 +32,10 @@ namespace CAB301_Assignment
         {
             MovieCollection = new MovieCollection();
             MemberCollection = new MemberCollection(MaxMembers);
-
-            TestSetup();
-
+            
             while (true)
             {
+                Console.Clear();
                 switch (WriteWelcome())
                 {
                     case 0:
@@ -54,6 +53,13 @@ namespace CAB301_Assignment
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Incorrect Username or Password!\r\n");
                             Console.ResetColor();
+
+                            Console.WriteLine("Press enter to return to main menu... ");
+
+                            while (Console.ReadKey().Key != ConsoleKey.Enter)
+                            {
+
+                            }
                         }
                         break;
                     case 2:
@@ -70,27 +76,17 @@ namespace CAB301_Assignment
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Incorrect Username or Password!\r\n");
                             Console.ResetColor();
+
+                            Console.WriteLine("Press enter to return to main menu... ");
+
+                            while (Console.ReadKey().Key != ConsoleKey.Enter)
+                            {
+
+                            }
                         }
                         break;
                 }
             }
-        }
-
-        // Method so i dont have to enter details every time...
-        private static void TestSetup()
-        {
-            //Temporary add movies to collection
-            MovieCollection.Movies.Insert(new Movie("Pulp Fiction", Genre.Action, Rating.MA15, "Vincent Vega, Samuel L Jackson, Uma Thurman", "Quentin Tarantino", "2 hours", new DateTime(1994, 11, 24), 5));
-            MovieCollection.MoviesInCollection++;
-            MovieCollection.Movies.Insert(new Movie("Inglorious Bastards", Genre.Drama, Rating.MA15, "Christoph Waltz, Brad Pitt, Melanie Laurent", "Quentin Tarantino", "3 hours", new DateTime(2009, 8, 3), 4));
-            MovieCollection.MoviesInCollection++;
-            MovieCollection.Movies.Insert(new Movie("Django Unchained", Genre.Action, Rating.MA15, "Leonardo DiCaprio, Samuel L Jackson, Christoph Waltz", "Quentin Tarantino", "2 hours", new DateTime(2012, 1, 24), 3));
-            MovieCollection.MoviesInCollection++;
-            MovieCollection.Movies.Insert(new Movie("Reservoir Dogs", Genre.Action, Rating.MA15, "Michael Madsen, Tim Roth, Steve Buscemi", "Quentin Tarantino", "2 hours", new DateTime(1992, 7, 30), 2));
-            MovieCollection.MoviesInCollection++;
-
-            //Temporary add user
-            MemberCollection.AddMember(new Member("John Smith", "SmithJohn", 1234, "123 Fake Street", "0404040404"));
         }
 
         private static int WriteWelcome()

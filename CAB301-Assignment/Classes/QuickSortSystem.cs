@@ -19,56 +19,52 @@ namespace CAB301_Assignment.Classes
         private static void QuickSort(Movie[] array, int leftIndex, int rightIndex)
         {
             // Base condition - array must be larger than 0
-            if (leftIndex < rightIndex)
+            if (leftIndex > rightIndex)
             {
-                // Get initial pivot
-                int piviotIndex = Partition(array, leftIndex, rightIndex);
-                
-                // Run quicksort on subarray smaller than pivot
-                QuickSort(array, leftIndex, piviotIndex - 1);
-                                
-                // Run quicksort on subarray larger than pivot
-                QuickSort(array, piviotIndex + 1, rightIndex);
+                return;
             }
+
+            // Get initial pivot
+            int piviotIndex = Partition(array, leftIndex, rightIndex);
+
+            // Run quicksort on subarray smaller than pivot
+            QuickSort(array, leftIndex, piviotIndex - 1);
+
+            // Run quicksort on subarray larger than pivot
+            QuickSort(array, piviotIndex + 1, rightIndex);
+
         }
 
         private static int Partition(Movie[] array, int leftIndex, int rightIndex)
         {
             //Get the movie at left index as a pivot
-            Movie pivot = array[leftIndex];
+            Movie pivot = array[rightIndex];
 
-            while (true)
+            // Grab smallest element to begin with
+            int pIndex = leftIndex;
+
+            for (int i = leftIndex; i < rightIndex; i++)
             {
-                // increase left index while the number of borrows is less than the number of borrows on the pivot
-                while (array[leftIndex].NumberOfBorrows < pivot.NumberOfBorrows)
+                // If element is less than or equal to pivot, swap them and increment pIndex
+                if (array[i].NumberOfBorrows <= pivot.NumberOfBorrows)
                 {
-                    leftIndex++;
-                }
+                    // Swap them and increment
+                    Swap(array, i, pIndex);
 
-                // decrease right index while number of borrows is greater than the number of borrows on the pivot
-                while(array[rightIndex].NumberOfBorrows > pivot.NumberOfBorrows)
-                {
-                    rightIndex--;
-                }
-
-                if (leftIndex < rightIndex)
-                {
-                    // Check if left and right number of borrows are the same, if so return right index
-                    if (array[leftIndex].NumberOfBorrows == array[rightIndex].NumberOfBorrows)
-                    {
-                        return rightIndex;
-                    }
-
-                    // Else swap them and re-run while loop
-                    Movie temp = array[leftIndex];
-                    array[leftIndex] = array[rightIndex];
-                    array[rightIndex] = temp;
-                }
-                else
-                {
-                    return rightIndex;
+                    pIndex++;
                 }
             }
+
+            Swap(array, rightIndex, pIndex);
+
+            return pIndex;
+        }
+
+        private static void Swap(Movie[] array, int i, int j)
+        {
+            Movie temp1 = array[i];
+            array[i] = array[j];
+            array[j] = temp1;
         }
     }
 }

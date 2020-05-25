@@ -40,14 +40,13 @@ namespace CAB301_Assignment
         {
             Console.WriteLine
                 (
-                "Welcome to the Community Library\r\n" +
-                "===========Main Menu===========\r\n" +
+                "===========Staff Menu===========\r\n" +
                 " 1. Add a new movie DVD\r\n" +
                 " 2. Remove a movie DVD\r\n" +
                 " 3. Register a new member\r\n" +
                 " 4. Find a registered member's phone number\r\n" +
                 " 0. Return to main menu\r\n" +
-                "===============================\r\n" +
+                "================================\r\n" +
                 "\r\n" +
                 " Please make a selection (1-4, or 0 to return to main menu):"
                 );
@@ -92,6 +91,8 @@ namespace CAB301_Assignment
 
         private static void AddNewDVD()
         {
+            Console.Clear();
+
             Movie newMovie;
 
             Console.Write("Please enter the movie title: ");
@@ -108,11 +109,7 @@ namespace CAB301_Assignment
                 genre = Genre.Other;
             }
 
-            Console.Write("\r\n1. G\r\n" +
-                " 2. PG\r\n" +
-                " 3. M15\r\n" +
-                " 4. MA14\r\n" +
-                "Please enter a rating from the above list: ");
+            Console.Write("\r\nPlease enter the rating (G, PG, M15+, MA15+): ");
 
             Rating rating = Rating.G;
             bool choiceMade = false;
@@ -121,19 +118,23 @@ namespace CAB301_Assignment
             {
                 switch (Console.ReadLine())
                 {
-                    case "1":
+                    case "G":
                         rating = Rating.G;
                         choiceMade = true;
                         break;
-                    case "2":
+                    case "PG":
                         rating = Rating.PG;
                         choiceMade = true;
                         break;
-                    case "3":
+                    case "M15":
+                    case "M15+":
+                    case "M":
                         rating = Rating.M15;
                         choiceMade = true;
                         break;
-                    case "4":
+                    case "MA15":
+                    case "MA15+":
+                    case "MA":
                         rating = Rating.MA15;
                         choiceMade = true;
                         break;
@@ -160,21 +161,33 @@ namespace CAB301_Assignment
                 Console.WriteLine("Please enter a valid date (dd/mm/yyyy): ");
             }
 
-            Console.Write("\r\nPlease enter the quantity of DVD's");
+            Console.Write("\r\nPlease enter the quantity of DVD's: ");
             int quantity = 0;
 
             while (!int.TryParse(Console.ReadLine(), out quantity))
             {
-                Console.WriteLine("Please enter a valid int: ");
+                Console.WriteLine("Please enter a valid number: ");
             }
 
             newMovie = new Movie(title, genre, rating, starring, director, duration, releaseDate, quantity);
 
             MovieCollection.AddMovie(newMovie);
+
+            Console.Clear();
+
+            Console.WriteLine("{0} added to the system.\r\n" +
+                    "Press enter to return to staff menu... ", title);
+
+            while (Console.ReadKey().Key != ConsoleKey.Enter)
+            {
+
+            }
         }
 
         private static void RemoveDVD()
         {
+            Console.Clear();
+
             Console.Write("Please enter the name of the DVD you want to delete: ");
 
             // Movie to delete
@@ -182,10 +195,22 @@ namespace CAB301_Assignment
             deleteMovie.Title = Console.ReadLine();
 
             MovieCollection.RemoveMovie(deleteMovie);
+
+            Console.Clear();
+
+            Console.WriteLine("{0} removed from the system.\r\n" +
+                    "Press enter to return to staff menu... ", deleteMovie.Title);
+
+            while (Console.ReadKey().Key != ConsoleKey.Enter)
+            {
+
+            }
         }
 
         private static void RegisterNewMember()
         {
+            Console.Clear();
+
             // Get full name of member and make username from it
             Console.Write("\r\nPlease enter the first name of the member: ");
             String firstName = Console.ReadLine();
@@ -203,17 +228,29 @@ namespace CAB301_Assignment
             Console.Write("\r\nPlease have the member enter their 4 digit passcode: ");
             int passCode = 0;
 
-            while (int.TryParse(Console.ReadLine(), out passCode) && passCode.ToString().Length != 4)
+            while (!int.TryParse(Console.ReadLine(), out passCode) || passCode.ToString().Length != 4)
             {
                 Console.WriteLine("\r\nPlease enter a valid, 4 digit passcode!");
             }
 
             Member newMember = new Member(fullName, userName, passCode, address, phoneNumber);
             MemberCollection.AddMember(newMember);
+
+            Console.Clear();
+
+            Console.WriteLine("{0} added to the system. Username is: {1}\r\n" +
+                    "Press enter to return to staff menu... ", fullName, userName);
+
+            while (Console.ReadKey().Key != ConsoleKey.Enter)
+            {
+
+            }
         }
 
         private static void GetMembersPhoneNumber()
         {
+            Console.Clear();
+
             // Search MemberCollection array for a matching user by full name
             Console.Write("\r\nPlease enter the full name of the user to find their phone number: ");
 
@@ -223,6 +260,8 @@ namespace CAB301_Assignment
 
             if (phoneNumber == null)
             {
+                Console.Clear();
+
                 Console.WriteLine("Couldn't find a user by that name! Press Enter to return to staff menu... ");
 
                 while (Console.ReadKey().Key != ConsoleKey.Enter)
@@ -232,6 +271,8 @@ namespace CAB301_Assignment
             }
             else
             {
+                Console.Clear();
+
                 Console.WriteLine("The phone number associated with {0} is: \r\n\r\n" +
                     "\t{1}\r\n\r\n" +
                     "Press Enter to return to staff menu... ", name, phoneNumber);
